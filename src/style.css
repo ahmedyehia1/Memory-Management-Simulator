@@ -1,0 +1,7 @@
+#process-card::-webkit-scrollbar {
+    display: none;
+  }
+  #process-card{
+    max-height: 500px !important;
+    overflow-y: scroll;
+  }
