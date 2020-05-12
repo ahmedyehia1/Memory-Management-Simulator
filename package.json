@@ -9,7 +9,8 @@
     "bootstrap": "^4.4.1",
     "electron-reload": "^1.5.0",
     "jquery": "^3.5.1",
-    "nice-color-palettes": "^3.0.0"
+    "nice-color-palettes": "^3.0.0",
+    "node-addon-api": "^3.0.0"
   },
   "devDependencies": {},
   "scripts": {

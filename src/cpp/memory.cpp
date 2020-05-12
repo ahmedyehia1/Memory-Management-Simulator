@@ -44,7 +44,7 @@ memory::memory(long long total_size,vector<vector<long long>> initial_Holes)
     for(int i = 1, n = Holes.size(); i < n; i++)
     {
     	temp2.base = Holes[i-1][0] + Holes[i-1][1];
-    	temp2.size = Holes[i][0] -(Holes[i-1][0] + Holes[i-1][1]-1);
+    	temp2.size = Holes[i][0] -(Holes[i-1][0] + Holes[i-1][1]);
     	tmp.push_back(temp2);
     }
     if(Holes[Holes.size()-1][0]+Holes[Holes.size()-1][1] < total_size)
@@ -161,10 +161,10 @@ void memory::organize_holes()
     segment tmp;
     tmp.name = "reserved";
     sort(Holes.begin(),Holes.end(),compare_holes);
-    for(long long i =0;i<Holes.size();i++)
-    {
-            //cout<<Holes[i][0]<<" "<<Holes[i][1]<<endl;
-    }
+    // for(long long i =0;i<Holes.size();i++)
+    // {
+    //         cout<<Holes[i][0]<<" "<<Holes[i][1]<<endl;
+    // }
     //cout<<endl;
     vector<vector<long long>> temp;
     long long start;
@@ -176,7 +176,7 @@ void memory::organize_holes()
         size =Holes[i][1];
         for(int j = i+1;j<n;j++)
         {
-            if(Holes[j][0] >= start   && Holes[j][0] <= start+size-1)
+            if(Holes[j][0] >= start   && Holes[j][0] <= start+size)
             {
                 size = max(Holes[j][1]+Holes[j][0],start+size)-start;
                 if(j == n-1)
@@ -194,7 +194,7 @@ void memory::organize_holes()
             }
  
         }
-        if(i==n-1&& ((Holes[n-2][1]+Holes[n-2][0] )>= start))
+        if(n!=1 && i==n-1&& ((Holes[n-2][1]+Holes[n-2][0] )>= start))
         {
  
         }
@@ -317,8 +317,8 @@ vector<segment> memory::remove(string segment_name,int process_index)
     }
     else
     {
-    	vector<long long> temp;
-        Process.erase(Process.begin()+process_index);
+    	vector<long long> temp(2);
+        // Process.erase(Process.begin()+process_index);
         for(int i=0;i<Process[process_index].size();i++)
         {
         	temp[0] = Process[process_index][i].base;
