@@ -24,7 +24,9 @@
 
     <div class="tab-pane fade show active" id="start" role="tabpanel" aria-labelledby="start-tab">
         <h3>Get Started</h3>
-        <p>add as much as you wish of unallocated spaces using "+" key or "Add holes" button</p>
+        <p class="my-0">add as much as you wish of unallocated spaces using "+" key or "Add holes" button</p>
+        <p class="mb-4 text-secondary" style="font-size: 14px">Note: in case of fractions with byte as a unit it will be ceiled</p>
+
         <div class="row d-flex justify-content-center">
           <div class="col-sm-10 d-flex justify-content-around align-items-center">
           <div>
@@ -75,11 +77,11 @@
               <hr class="my-3">
               <div class="d-flex justify-content-around">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" checked id="inlineRadio1" value="first-fit">
+                  <input class="form-check-input fit-data" type="radio" name="inlineRadioOptions" checked id="First-fit-data" value="first-fit">
                   <label class="form-check-label" for="inlineRadio1">First-fit</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="best-fit">
+                  <input class="form-check-input fit-data" type="radio" name="inlineRadioOptions" id="Best-fit-data" value="best-fit">
                   <label class="form-check-label" for="inlineRadio2">Best-fit</label>
                 </div>
               </div>
@@ -117,75 +119,13 @@
 
     <div class="tab-pane fade" id="process" role="tabpanel" aria-labelledby="process-tab">
       <h3>Process tables</h3>
-
+      <p class="mb-4 text-secondary" style="font-size: 14px">Process removed has -1 as it's Segments base</p>
     <div id="accordion">
-      <div class="card">
-        <div class="card-header" id="headingOne">
-          <h5 class="mb-0">
-            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              process 1
-            </button>
-          </h5>
-        </div>
-        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-          <div class="card-body">
-            <table class="table table-hover table-dark">
-              <thead>
-                <tr>
-                  <th scope="col">name</th> <th scope="col">base</th> <th scope="col">limit</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Data</td> <td>0</td> <td>120</td>
-                </tr>
-                <tr>
-                  <td>Code</td> <td>150</td> <td>100</td>
-                </tr>
-                <tr>
-                  <td>Heap</td> <td>300</td> <td>50</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="headingTwo">
-          <h5 class="mb-0">
-            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              process 2
-            </button>
-          </h5>
-        </div>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-          <div class="card-body">
-            <table class="table table-hover table-dark">
-              <thead>
-                <tr>
-                  <th scope="col">name</th> <th scope="col">base</th> <th scope="col">limit</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Data</td> <td>0</td> <td>120</td>
-                </tr>
-                <tr>
-                  <td>Code</td> <td>150</td> <td>100</td>
-                </tr>
-                <tr>
-                  <td>Heap</td> <td>300</td> <td>50</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
 <script>const {removeDataField,holeDataCheck} = require("./DOM-methods.js")</script>
 <script>require("./SVG-core.js")</script>
-<script>require("./Event-handlers.js")</script>
+<script>const {handleRemoveSeg} = require("./Event-handlers.js")</script>
 </body>
 </html>

@@ -74,83 +74,88 @@ memory::memory(long long total_size,vector<vector<long long>> initial_Holes)
 
 vector<segment> memory::Best_fit(vector<segment> Pnew)
 {
-	//long long min_fit_size;
-	vector<segment> layout;
-
-	vector<vector<long long>> temp=Holes;
-	sort(temp.begin(),temp.end(),compare_holes2);
-	bool flag =0;
-	for(int i = 0, n = Pnew.size(); i < n; i++)
-	{
-
-		for(int j = 0, m = temp.size(); j < m; j++)
-		{
-			if(temp[j][1] >= Pnew[i].size )
-			{
-				Pnew[i].base=temp[j][0];
-				temp[j][1]-= Pnew[i].size;
-				temp[j][0]+= Pnew[i].size;
-				if(temp[j][1] == 0)
-				{
-					temp.erase(temp.begin()+j);
-				}
-				break;
-			}
-			if(j== m-1 && temp[j][1] < Pnew[i].size)
-			{
-				flag =1;
-			}
-		}
-		if(flag == 1)
-		{
-			break;
-		}
-	}
-
-	if(flag == 0)
-	{
-		sort(temp.begin(),temp.end(),compare_holes);
-		Holes=temp;
-		if(Pnew[0].process_no <= (Process.size()-1))
-		{
-			for(int i = 0, n = Process[Pnew[0].process_no].size(); i < n; i++)
-			{
-				Process[Pnew[0].process_no][i].status =1;
-				Process[Pnew[0].process_no][i].base=Pnew[i].base;
-			}
-		}
-		else
-		{
-			for(int i = 0, n = Pnew.size(); i < n; i++)
-			{
-				Pnew[i].status=1;
-			}
-			Process.push_back(Pnew);
-		}
-
-
-	}
-	else
-	{
-		if(Pnew[0].process_no <= (Process.size()-1))
-		{
-			for(int i = 0, n = Process[Pnew[0].process_no].size(); i < n; i++)
-			{
-				Process[Pnew[0].process_no][i].status =0;
-				Process[Pnew[0].process_no][i].base=-1;
-			}
-		}
-		else
-		{
-			for(int i = 0, n = Pnew.size(); i < n; i++)
-			{
-				Pnew[i].status=0;
-				Pnew[i].base= -1;
-			}
-			Process.push_back(Pnew);
-		}
-	}
-	return create_layout();
+    //long long min_fit_size;
+    vector<segment> layout;
+ 
+    vector<vector<long long>> temp=Holes;
+    sort(temp.begin(),temp.end(),compare_holes2);
+    bool flag =0;
+    for(int i = 0, n = Pnew.size(); i < n; i++)
+    {
+        if(temp.size() == 0)
+        {
+            flag = 1;
+            break;
+        }
+ 
+        for(int j = 0, m = temp.size(); j < m; j++)
+        {
+            if(temp[j][1] >= Pnew[i].size )
+            {
+                Pnew[i].base=temp[j][0];
+                temp[j][1]-= Pnew[i].size;
+                temp[j][0]+= Pnew[i].size;
+                if(temp[j][1] == 0)
+                {
+                    temp.erase(temp.begin()+j);
+                }
+                break;
+            }
+            if(j== m-1 && temp[j][1] < Pnew[i].size)
+            {
+                flag =1;
+            }
+        }
+        if(flag == 1)
+        {
+            break;
+        }
+    }
+ 
+    if(flag == 0)
+    {
+        sort(temp.begin(),temp.end(),compare_holes);
+        Holes=temp;
+        if(Pnew[0].process_no <= (Process.size()-1))
+        {
+            for(int i = 0, n = Process[Pnew[0].process_no].size(); i < n; i++)
+            {
+                Process[Pnew[0].process_no][i].status =1;
+                Process[Pnew[0].process_no][i].base=Pnew[i].base;
+            }
+        }
+        else
+        {
+            for(int i = 0, n = Pnew.size(); i < n; i++)
+            {
+                Pnew[i].status=1;
+            }
+            Process.push_back(Pnew);
+        }
+ 
+ 
+    }
+    else
+    {
+        if(Pnew[0].process_no <= (Process.size()-1))
+        {
+            for(int i = 0, n = Process[Pnew[0].process_no].size(); i < n; i++)
+            {
+                Process[Pnew[0].process_no][i].status =0;
+                Process[Pnew[0].process_no][i].base=-1;
+            }
+        }
+        else
+        {
+            for(int i = 0, n = Pnew.size(); i < n; i++)
+            {
+                Pnew[i].status=0;
+                Pnew[i].base= -1;
+            }
+            Process.push_back(Pnew);
+        }
+    }
+    return create_layout();
 }
 
 //std::vector<segment> memory::remove(long long base,long long size);
@@ -325,6 +330,7 @@ vector<segment> memory::remove(string segment_name,int process_index)
         	temp[1] = Process[process_index][i].size;
         	Holes.push_back(temp);
             Process[process_index][i].status= false;
+            Process[process_index][i].base = -1;
         }
         organize_holes();
         return create_layout();
@@ -334,4 +340,9 @@ vector<segment> memory::remove(string segment_name,int process_index)
 //yehia
 memory::memory(){
 	m_total_size=100;
+}
+
+bool memory::get_status(int process_no)
+{
+    return Process[process_no][0].status;
 }

@@ -1,7 +1,7 @@
 'use-strict';
 
 const {app , BrowserWindow, Menu} = require("electron");
-require('electron-reload')(__dirname);
+// require('electron-reload')(__dirname);
 
 let win;
 function CreateWin(){
@@ -13,7 +13,7 @@ function CreateWin(){
     }
   });
   win.loadFile('src/markup.html');
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 }
 
 app.on('ready',() => {
@@ -21,5 +21,5 @@ app.on('ready',() => {
 });
 
 //no menu
-let menu = Menu.buildFromTemplate([]);
-Menu.setApplicationMenu(menu);
+// let menu = Menu.buildFromTemplate([]);
+// Menu.setApplicationMenu(menu);

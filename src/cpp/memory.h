@@ -19,6 +19,7 @@ class memory
     memory(long long total_size,std::vector<std::vector<long long>> initial_Holes);//done
     void organize_holes();//done
     std::vector<std::vector<segment>> get_Process();
+    bool get_status(int process_no);
     std::vector<segment> remove(std::string segment_name,int process_index);
 };
 

@@ -15,7 +15,7 @@ exports.holeDataCheck = (e) => {
     let target = e.keyCode;
     if(target == 107) e.target.value = e.target.value.slice(0,-1);
     if(target >= 65 && target <= 90){
-        exports.Alert("Please type Numbers only","body")
+        exports.Alert("Please type Numbers only","#start",1000)
     }
 }
 exports.Alert = (msg,parent,time) => {

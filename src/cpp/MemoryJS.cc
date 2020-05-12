@@ -107,6 +107,31 @@ Napi::Value MemoryJS::Best_fit(const Napi::CallbackInfo& info){
     return Process;
 }
 
+Napi::Value MemoryJS::get_status(const Napi::CallbackInfo& info){
+    Napi::Env env = info.Env();
+    bool stat = this->core.get_status(info[0].ToNumber().Int32Value());
+    return Napi::Boolean::New(env,stat);
+}
+
+Napi::Value MemoryJS::get_Process(const Napi::CallbackInfo& info){
+    Napi::Env env = info.Env();
+    std::vector<std::vector<segment>> vv = this->core.get_Process();
+    Napi::Object Arrext = Napi::Object::New(env);
+    for(int k = 0,ll = vv.size(); k < ll; k++){
+        Napi::Object Arrmid = Napi::Object::New(env);
+        for(int i = 0,ml = vv[k].size(); i < ml; i++){
+            Napi::Object Arrint = Napi::Object::New(env);
+            Arrint.Set("name",Napi::String::New(env,vv[k][i].name));
+            Arrint.Set("process_no",Napi::Number::New(env,vv[k][i].process_no));
+            Arrint.Set("base",Napi::Number::New(env,vv[k][i].base));
+            Arrint.Set("size",Napi::Number::New(env,vv[k][i].size));
+            Arrint.Set("status",Napi::Boolean::New(env,vv[k][i].status));
+            Arrmid.Set(i,Arrint);
+        }
+        Arrext.Set(k,Arrmid);
+    }
+    return Arrext;
+}
 Napi::FunctionReference MemoryJS::constructor;
 Napi::Function MemoryJS::GetClass(Napi::Env env){
     Napi::Function func = DefineClass(env,"MemoryJS",{
@@ -114,6 +139,8 @@ Napi::Function MemoryJS::GetClass(Napi::Env env){
         MemoryJS::InstanceMethod("remove",&MemoryJS::remove),
         MemoryJS::InstanceMethod("First_fit",&MemoryJS::Best_fit),
         MemoryJS::InstanceMethod("Best_fit",&MemoryJS::Best_fit),
+        MemoryJS::InstanceMethod("get_status",&MemoryJS::get_status),
+        MemoryJS::InstanceMethod("get_Process",&MemoryJS::get_Process),
     });
     constructor = Napi::Persistent(func);
     constructor.SuppressDestruct();

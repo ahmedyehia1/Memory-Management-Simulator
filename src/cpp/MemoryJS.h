@@ -13,5 +13,7 @@ public:
     Napi::Value First_fit(const Napi::CallbackInfo&);
     Napi::Value Best_fit(const Napi::CallbackInfo&);
     Napi::Value remove(const Napi::CallbackInfo&);
+    Napi::Value get_Process(const Napi::CallbackInfo&);
+    Napi::Value get_status(const Napi::CallbackInfo&);
     static Napi::Function GetClass(Napi::Env);
 };
